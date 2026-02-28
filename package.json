@@ -1,0 +1,68 @@
+﻿{
+  "name": "scriptit",
+  "displayName": "ScriptIt",
+  "description": "Run, navigate, and lint Makefiles, Shell scripts, PowerShell scripts, and Batch files from one extension.",
+  "version": "0.0.1",
+  "publisher": "shellrag",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rsvsu/scriptit"
+  },
+  "engines": { "vscode": "^1.85.0" },
+  "categories": ["Programming Languages", "Linters", "Other"],
+  "keywords": ["makefile", "shell", "bash", "powershell", "batch", "script runner", "codelens", "task runner"],
+  "icon": "images/icon.png",
+  "galleryBanner": { "color": "#1e1e1e", "theme": "dark" },
+  "activationEvents": [
+    "workspaceContains:**/Makefile",
+    "workspaceContains:**/*.sh",
+    "workspaceContains:**/*.ps1",
+    "workspaceContains:**/*.bat"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      { "command": "scriptit.runTarget", "title": "ScriptIt: Run Target" },
+      { "command": "scriptit.pickTarget", "title": "ScriptIt: Pick & Run Target" },
+      { "command": "scriptit.listAllTargets", "title": "ScriptIt: List All Targets in Workspace" }
+    ],
+    "menus": {
+      "editor/context": [{
+        "command": "scriptit.pickTarget",
+        "when": "resourceLangId == makefile || resourceLangId == shellscript || resourceLangId == powershell || resourceLangId == bat",
+        "group": "navigation"
+      }]
+    },
+    "configuration": {
+      "title": "ScriptIt",
+      "properties": {
+        "scriptit.makeCommand": { "type": "string", "default": "make", "description": "Path or name of the make executable." },
+        "scriptit.shellCommand": { "type": "string", "default": "bash", "description": "Shell for running shell scripts (bash, zsh, sh)." },
+        "scriptit.powershellCommand": { "type": "string", "default": "pwsh", "description": "PowerShell executable (pwsh or powershell)." },
+        "scriptit.enableCodeLens": { "type": "boolean", "default": true, "description": "Show Run CodeLens above targets and functions." },
+        "scriptit.enableDiagnostics": { "type": "boolean", "default": true, "description": "Enable linting and diagnostics." }
+      }
+    },
+    "taskDefinitions": [
+      { "type": "scriptit-makefile", "required": ["target"], "properties": { "target": { "type": "string" }, "file": { "type": "string" } } },
+      { "type": "scriptit-shell", "required": ["target"], "properties": { "target": { "type": "string" }, "file": { "type": "string" } } },
+      { "type": "scriptit-powershell", "required": ["target"], "properties": { "target": { "type": "string" }, "file": { "type": "string" } } },
+      { "type": "scriptit-batch", "required": ["target"], "properties": { "target": { "type": "string" }, "file": { "type": "string" } } }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "lint": "eslint src --ext ts",
+    "package": "vsce package",
+    "publish": "vsce publish"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/vscode": "^1.85.0",
+    "@vscode/vsce": "^3.0.0",
+    "typescript": "^5.3.0"
+  }
+}
