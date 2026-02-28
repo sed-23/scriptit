@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6C5CE7;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0984E3;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="play" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#DFE6E9;stop-opacity:0.9" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Rounded square background -->
+  <rect x="4" y="4" width="120" height="120" rx="24" ry="24" fill="url(#bg)" />
+  
+  <!-- Terminal prompt lines -->
+  <g opacity="0.3" fill="white">
+    <rect x="20" y="24" width="36" height="4" rx="2" />
+    <rect x="20" y="34" width="52" height="4" rx="2" />
+    <rect x="20" y="44" width="28" height="4" rx="2" />
+  </g>
+  
+  <!-- Play/Run triangle -->
+  <polygon points="46,62 92,82 46,102" fill="url(#play)" opacity="0.95" />
+  
+  <!-- Small terminal cursor blink -->
+  <rect x="22" y="54" width="8" height="3" rx="1" fill="white" opacity="0.5" />
+  
+  <!-- > prompt symbol -->
+  <text x="20" y="86" font-family="Consolas,monospace" font-size="16" font-weight="bold" fill="white" opacity="0.4">&gt;_</text>
+</svg>

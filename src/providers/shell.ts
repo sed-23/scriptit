@@ -26,7 +26,7 @@ export const shellProvider: LanguageProvider = {
   },
 
   buildCommand(target: ScriptTarget, filePath: string): string {
-    const config = vscode.workspace.getConfiguration('scriptit');
+    const config = vscode.workspace.getConfiguration('commandpad');
     const shell = config.get<string>('shellCommand', 'bash');
     return `${shell} -c 'source "${filePath}" && ${target.name}'`;
   },

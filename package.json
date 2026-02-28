@@ -1,53 +1,190 @@
 {
-  "name": "scriptit",
-  "displayName": "ScriptIt",
-  "description": "Run, navigate, and lint Makefiles, Shell scripts, PowerShell scripts, and Batch files from one extension.",
-  "version": "0.0.1",
+  "name": "commandpad",
+  "displayName": "CommandPad",
+  "description": "Your launchpad for scripts & configs. Run targets, navigate functions, lint issues — across Makefiles, Shell, PowerShell, Batch, .env and config files.",
+  "version": "0.1.0",
   "publisher": "siddy",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sed-23/scriptit"
+    "url": "https://github.com/sed-23/commandpad"
   },
-  "engines": { "vscode": "^1.85.0" },
-  "categories": ["Programming Languages", "Linters", "Other"],
-  "keywords": ["makefile", "shell", "bash", "powershell", "batch", "script runner", "codelens", "task runner"],
-  "galleryBanner": { "color": "#1e1e1e", "theme": "dark" },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Linters",
+    "Other"
+  ],
+  "keywords": [
+    "makefile",
+    "shell",
+    "bash",
+    "powershell",
+    "batch",
+    "env",
+    "config",
+    "script runner",
+    "codelens",
+    "task runner",
+    "dotenv",
+    "ini"
+  ],
+  "icon": "images/icon.png",
+  "galleryBanner": {
+    "color": "#1e1e1e",
+    "theme": "dark"
+  },
   "activationEvents": [
     "workspaceContains:**/Makefile",
     "workspaceContains:**/*.sh",
     "workspaceContains:**/*.ps1",
-    "workspaceContains:**/*.bat"
+    "workspaceContains:**/*.bat",
+    "workspaceContains:**/.env",
+    "workspaceContains:**/*.ini",
+    "workspaceContains:**/*.conf"
   ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
-      { "command": "scriptit.runTarget", "title": "ScriptIt: Run Target" },
-      { "command": "scriptit.pickTarget", "title": "ScriptIt: Pick & Run Target" },
-      { "command": "scriptit.listAllTargets", "title": "ScriptIt: List All Targets in Workspace" }
+      {
+        "command": "commandpad.runTarget",
+        "title": "CommandPad: Run Target"
+      },
+      {
+        "command": "commandpad.pickTarget",
+        "title": "CommandPad: Pick & Run Target"
+      },
+      {
+        "command": "commandpad.listAllTargets",
+        "title": "CommandPad: List All Targets in Workspace"
+      }
     ],
     "menus": {
-      "editor/context": [{
-        "command": "scriptit.pickTarget",
-        "when": "resourceLangId == makefile || resourceLangId == shellscript || resourceLangId == powershell || resourceLangId == bat",
-        "group": "navigation"
-      }]
+      "editor/context": [
+        {
+          "command": "commandpad.pickTarget",
+          "when": "resourceLangId == makefile || resourceLangId == shellscript || resourceLangId == powershell || resourceLangId == bat || resourceLangId == dotenv || resourceLangId == ini || resourceLangId == properties",
+          "group": "navigation"
+        }
+      ]
     },
     "configuration": {
-      "title": "ScriptIt",
+      "title": "CommandPad",
       "properties": {
-        "scriptit.makeCommand": { "type": "string", "default": "make", "description": "Path or name of the make executable." },
-        "scriptit.shellCommand": { "type": "string", "default": "bash", "description": "Shell for running shell scripts (bash, zsh, sh)." },
-        "scriptit.powershellCommand": { "type": "string", "default": "pwsh", "description": "PowerShell executable (pwsh or powershell)." },
-        "scriptit.enableCodeLens": { "type": "boolean", "default": true, "description": "Show Run CodeLens above targets and functions." },
-        "scriptit.enableDiagnostics": { "type": "boolean", "default": true, "description": "Enable linting and diagnostics." }
+        "commandpad.makeCommand": {
+          "type": "string",
+          "default": "make",
+          "description": "Path or name of the make executable."
+        },
+        "commandpad.shellCommand": {
+          "type": "string",
+          "default": "bash",
+          "description": "Shell for running shell scripts (bash, zsh, sh)."
+        },
+        "commandpad.powershellCommand": {
+          "type": "string",
+          "default": "pwsh",
+          "description": "PowerShell executable (pwsh or powershell)."
+        },
+        "commandpad.enableCodeLens": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show Run CodeLens above targets and functions."
+        },
+        "commandpad.enableDiagnostics": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable linting and diagnostics."
+        }
       }
     },
     "taskDefinitions": [
-      { "type": "scriptit-makefile", "required": ["target"], "properties": { "target": { "type": "string" }, "file": { "type": "string" } } },
-      { "type": "scriptit-shell", "required": ["target"], "properties": { "target": { "type": "string" }, "file": { "type": "string" } } },
-      { "type": "scriptit-powershell", "required": ["target"], "properties": { "target": { "type": "string" }, "file": { "type": "string" } } },
-      { "type": "scriptit-batch", "required": ["target"], "properties": { "target": { "type": "string" }, "file": { "type": "string" } } }
+      {
+        "type": "commandpad-makefile",
+        "required": [
+          "target"
+        ],
+        "properties": {
+          "target": {
+            "type": "string"
+          },
+          "file": {
+            "type": "string"
+          }
+        }
+      },
+      {
+        "type": "commandpad-shell",
+        "required": [
+          "target"
+        ],
+        "properties": {
+          "target": {
+            "type": "string"
+          },
+          "file": {
+            "type": "string"
+          }
+        }
+      },
+      {
+        "type": "commandpad-powershell",
+        "required": [
+          "target"
+        ],
+        "properties": {
+          "target": {
+            "type": "string"
+          },
+          "file": {
+            "type": "string"
+          }
+        }
+      },
+      {
+        "type": "commandpad-batch",
+        "required": [
+          "target"
+        ],
+        "properties": {
+          "target": {
+            "type": "string"
+          },
+          "file": {
+            "type": "string"
+          }
+        }
+      },
+      {
+        "type": "commandpad-env",
+        "required": [
+          "target"
+        ],
+        "properties": {
+          "target": {
+            "type": "string"
+          },
+          "file": {
+            "type": "string"
+          }
+        }
+      },
+      {
+        "type": "commandpad-config",
+        "required": [
+          "target"
+        ],
+        "properties": {
+          "target": {
+            "type": "string"
+          },
+          "file": {
+            "type": "string"
+          }
+        }
+      }
     ]
   },
   "scripts": {

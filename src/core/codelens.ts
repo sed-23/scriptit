@@ -8,7 +8,7 @@ export class ScriptCodeLensProvider implements vscode.CodeLensProvider {
   constructor(private provider: LanguageProvider) {}
 
   provideCodeLenses(document: vscode.TextDocument): vscode.CodeLens[] {
-    const config = vscode.workspace.getConfiguration('scriptit');
+    const config = vscode.workspace.getConfiguration('commandpad');
     if (!config.get<boolean>('enableCodeLens', true)) {
       return [];
     }
@@ -17,7 +17,7 @@ export class ScriptCodeLensProvider implements vscode.CodeLensProvider {
       const range = new vscode.Range(target.line, 0, target.line, 0);
       return new vscode.CodeLens(range, {
         title: `$(play) Run ${target.name}`,
-        command: 'scriptit.runTarget',
+        command: 'commandpad.runTarget',
         arguments: [this.provider.id, target, document.uri.fsPath],
         tooltip: target.description || `Run ${target.kind}: ${target.name}`,
       });

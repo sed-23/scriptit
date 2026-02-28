@@ -34,7 +34,7 @@ export const powershellProvider: LanguageProvider = {
   },
 
   buildCommand(target: ScriptTarget, filePath: string): string {
-    const config = vscode.workspace.getConfiguration('scriptit');
+    const config = vscode.workspace.getConfiguration('commandpad');
     const ps = config.get<string>('powershellCommand', 'pwsh');
     return `${ps} -Command ". '${filePath}'; ${target.name}"`;
   },
